@@ -1,23 +1,11 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
-import { Workout } from '../types/data';
 import { MontserratText } from '../components/styled/MontserratText';
 import WorkoutItem from '../components/WorkoutItem';
-import { useEffect, useState } from 'react';
-import { getWorkouts } from '../storage/workout';
+import { useWorkouts } from '../hooks/useWorkouts';
 
 export default function HomeScreen({ navigation }: NativeStackHeaderProps) {
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-
-  useEffect(() => {
-    const getWorkoutData = async () => {
-      const workoutData = await getWorkouts();
-
-      setWorkouts(workoutData);
-    };
-
-    getWorkoutData();
-  }, []);
+  const [workouts] = useWorkouts();
 
   return (
     <View style={styles.container}>

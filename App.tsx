@@ -5,7 +5,7 @@ import Navigation from './navigation';
 export default function App() {
   const [loadingCompleted] = useCachedResources();
 
-  if (!loadingCompleted) return 'loading';
+  if (!loadingCompleted) return 'loading...';
 
   return (
     <>

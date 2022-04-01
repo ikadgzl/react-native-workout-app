@@ -1,5 +1,5 @@
 import { Pressable, PressableProps } from 'react-native';
-import { MontserratText } from './styled/MontserratText';
+import { MontserratText } from './MontserratText';
 
 export function PressableText(props: PressableProps & { text: string }) {
   return (

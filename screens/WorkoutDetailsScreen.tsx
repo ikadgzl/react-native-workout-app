@@ -7,6 +7,9 @@ import { Modal } from '../components/Modal';
 import { formatTime } from '../utils/time';
 import { FontAwesome } from '@expo/vector-icons';
 import WorkoutItem from '../components/WorkoutItem';
+import { useEffect, useState } from 'react';
+import { SequenceItem } from '../types/data';
+import { useCountdown } from '../hooks/useCountdown';
 
 interface DetailsParams {
   route: {
@@ -18,6 +21,15 @@ interface DetailsParams {
 
 export default function WorkoutDetailsScreen({ route }: NativeStackHeaderProps & DetailsParams) {
   const [workout] = useWorkoutById(route.params.slug);
+  const [sequence, setSequence] = useState<SequenceItem[]>([]);
+  const [trackerIndex, setTrackerIndex] = useState<number>(-1);
+
+  const [countdown] = useCountdown(trackerIndex, trackerIndex >= 0 ? sequence[trackerIndex].duration : -1);
+
+  const addItemToSequence = (idx: number) => {
+    setSequence([...sequence, workout!.sequence[idx]]);
+    setTrackerIndex(idx);
+  };
 
   if (!workout) return null;
 
@@ -37,6 +49,8 @@ export default function WorkoutDetailsScreen({ route }: NativeStackHeaderProps &
           </View>
         </Modal>
       </WorkoutItem>
+
+      <View>{sequence.length === 0 && <FontAwesome name='play-circle-o' size={48} onPress={() => addItemToSequence(0)} />}</View>
     </View>
   );
 }

@@ -3,7 +3,7 @@ import * as Font from 'expo-font';
 import { initWorkouts } from '../storage/workout';
 
 export const useCachedResources = () => {
-  const [loadingCompleted, setLoadingCompleted] = useState(false);
+  const [loadingCompleted, setLoadingCompleted] = useState<boolean>(false);
 
   useEffect(() => {
     const loadResources = async () => {
